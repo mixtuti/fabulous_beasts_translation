@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>中日翻訳カード</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Chinese → Japanese Translation Cards</p>
+      <h1>中日翻訳カード</h1>
+      <p class="lead">単語・セリフ・例文を相互リンクし、音声再生できます。中国語入力は専用ページで補助します。</p>
+      <nav class="page-nav" aria-label="ページ移動">
+        <a href="index.html">カード一覧</a>
+        <a href="input.html">中国語入力補助</a>
+        <a href="card-input.html">カード入力補助</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section class="controls" aria-label="検索とフィルター">
+      <label>
+        検索
+        <input id="searchInput" type="search" placeholder="中国語 / 日本語 / ピンイン / タグ / メモで検索" />
+      </label>
+
+      <label>
+        種別
+        <select id="typeFilter">
+          <option value="all">すべて</option>
+        </select>
+      </label>
+
+      <label>
+        カテゴリ
+        <select id="categoryFilter">
+          <option value="all">すべて</option>
+        </select>
+      </label>
+
+      <label>
+        話者
+        <select id="speakerFilter">
+          <option value="all">すべて</option>
+        </select>
+      </label>
+
+      <label>
+        ソート
+        <select id="sortSelect">
+          <option value="registered">登録順</option>
+          <option value="speaker">話者順</option>
+          <option value="zh">中国語順</option>
+          <option value="pinyin">ピンイン順</option>
+          <option value="category">カテゴリ順</option>
+          <option value="type">種別順</option>
+        </select>
+      </label>
+
+      <label class="checkbox-row">
+        <input id="flagOnly" type="checkbox" />
+        要確認のみ
+      </label>
+    </section>
+
+    <section class="summary">
+      <span id="countText">0件</span>
+      <button id="resetButton" type="button">絞り込みをリセット</button>
+    </section>
+
+    <section id="cards" class="cards" aria-live="polite"></section>
+  </main>
+
+  <template id="cardTemplate">
+    <article class="card">
+      <div class="card-top">
+        <div class="badges">
+          <span class="type"></span>
+          <span class="category"></span>
+          <span class="speaker-badge"></span>
+        </div>
+        <span class="status"></span>
+      </div>
+
+      <div class="text-block">
+        <p class="label">原文</p>
+        <h2 class="zh"></h2>
+        <div class="audio-row">
+          <button class="speak-zh" type="button">中国語音声</button>
+          <button class="copy-zh" type="button">原文コピー</button>
+        </div>
+      </div>
+
+      <p class="pinyin"></p>
+
+      <div class="text-block translation">
+        <p class="label">訳</p>
+        <p class="ja"></p>
+      </div>
+
+      <p class="literal"></p>
+
+      <div class="syntax-block">
+        <p class="label">構文パターン</p>
+        <p class="pattern"></p>
+        <p class="meaning"></p>
+        <p class="usage"></p>
+      </div>
+
+      <div class="syntax-examples-block">
+        <p class="label">構文例</p>
+        <div class="syntax-examples"></div>
+      </div>
+
+      <div class="related-block">
+        <p class="label">関連</p>
+        <div class="related"></div>
+      </div>
+
+      <div class="contains-block">
+        <p class="label">含まれる単語</p>
+        <div class="contains"></div>
+      </div>
+
+      <div class="examples-block">
+        <p class="label">この単語を含む例文・セリフ</p>
+        <div class="examples"></div>
+      </div>
+
+      <div class="meta">
+        <span class="source"></span>
+        <span class="page"></span>
+      </div>
+
+      <p class="note"></p>
+      <div class="tags"></div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

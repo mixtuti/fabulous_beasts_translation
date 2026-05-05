@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>中国語入力補助 | 中日翻訳カード</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Chinese Input Helper</p>
+      <h1>中国語入力補助</h1>
+      <p class="lead">読めない漢字・よく使う字句をクリック入力し、音声確認・コピーできます。</p>
+      <nav class="page-nav" aria-label="ページ移動">
+        <a href="index.html">カード一覧</a>
+        <a href="input.html">中国語入力補助</a>
+        <a href="card-input.html">カード入力補助</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="input-page-panel">
+      <label>
+        中国語入力欄
+        <textarea id="zhDraft" rows="7" placeholder="ここに中国語を貼り付け・入力。下の文字や語句をクリックするとカーソル位置に入ります。"></textarea>
+      </label>
+
+      <div class="helper-buttons">
+        <button id="speakDraftButton" type="button">この中国語を読む</button>
+        <button id="copyDraftButton" type="button">コピー</button>
+        <button id="clearDraftButton" type="button">クリア</button>
+      </div>
+
+      <p class="helper-note">
+        ピンインが分からなくても、まず中国語本文を保存して大丈夫です。音声で確認して、あとからカード側の <code>pinyin</code> を追記できます。
+      </p>
+    </section>
+
+    <section class="input-page-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Common Characters</p>
+          <h2>頻出100字</h2>
+        </div>
+        <input id="charSearch" type="search" placeholder="漢字 / pinyin / 意味で検索" />
+      </div>
+      <div id="commonChars" class="char-grid"></div>
+    </section>
+
+    <section class="input-page-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Useful Phrases</p>
+          <h2>よく使う語句・記号</h2>
+        </div>
+      </div>
+      <div id="phraseButtons" class="quick-chars phrase-grid"></div>
+    </section>
+  </main>
+
+  <script src="input.js"></script>
+</body>
+</html>

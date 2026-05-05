@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>カード入力補助 | 中日翻訳カード</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Card JSON Builder</p>
+      <h1>カード入力補助</h1>
+      <p class="lead">フォームに入力すると、data.json に貼り付けるカードJSONを生成できます。</p>
+      <nav class="page-nav" aria-label="ページ移動">
+        <a href="index.html">カード一覧</a>
+        <a href="input.html">中国語入力補助</a>
+        <a href="card-input.html">カード入力補助</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout card-input-layout">
+    <section class="input-page-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Form</p>
+          <h2>カード情報</h2>
+        </div>
+        <button id="resetFormButton" type="button">フォームをリセット</button>
+      </div>
+
+      <form id="cardForm" class="card-form">
+        <label>
+          ID
+          <input id="idInput" type="number" min="1" />
+        </label>
+
+        <label>
+          種別
+          <select id="typeInput">
+            <option value="キャラ名">キャラ名</option>
+            <option value="名詞">名詞</option>
+            <option value="副詞">副詞</option>
+            <option value="動詞">動詞</option>
+            <option value="接続詞">接続詞</option>
+            <option value="代詞">代詞</option>
+            <option value="表現">表現</option>
+            <option value="構文">構文</option>
+            <option value="擬音語">擬音語</option>
+            <option value="文">文</option>
+            <option value="セリフ">セリフ</option>
+            <option value="例文">例文</option>
+            <option value="タイトル">タイトル</option>
+          </select>
+        </label>
+
+        <label>
+          カテゴリ
+          <input id="categoryInput" list="categoryList" placeholder="例: キャラ名 / 世界観 / セリフ" />
+          <datalist id="categoryList"></datalist>
+        </label>
+
+        <label>
+          ステータス
+          <select id="statusInput">
+            <option value="要確認">要確認</option>
+            <option value="確認済み">確認済み</option>
+          </select>
+        </label>
+
+        <label class="wide-field">
+          中国語原文 zh
+          <textarea id="zhInput" rows="3" placeholder="例: 你怎么又跑到人间来了？"></textarea>
+        </label>
+
+        <label>
+          ピンイン pinyin
+          <input id="pinyinInput" placeholder="分からなければ空欄でOK" />
+        </label>
+
+        <label>
+          話者 speaker
+          <input id="speakerInput" list="speakerList" placeholder="例: ナレーション / 不明 / 貔貅" />
+          <datalist id="speakerList"></datalist>
+        </label>
+
+        <label class="wide-field">
+          日本語訳 ja
+          <textarea id="jaInput" rows="3" placeholder="例: どうしてまた人間界に来たの？"></textarea>
+        </label>
+
+        <label class="wide-field">
+          直訳メモ literal
+          <textarea id="literalInput" rows="2" placeholder="例: あなたはどうしてまた人間界へ走って来たのか？"></textarea>
+        </label>
+
+        <label class="wide-field syntax-field">
+          構文パターン pattern
+          <input id="patternInput" placeholder="例: 将 A 视为 B" />
+        </label>
+
+        <label class="wide-field syntax-field">
+          構文の意味 meaning
+          <input id="meaningInput" placeholder="例: AをBとみなす" />
+        </label>
+
+        <label class="wide-field syntax-field">
+          使い方 usage
+          <textarea id="usageInput" rows="3" placeholder="例: 将 の後に目的語Aを置き、视为 の後に判断結果Bを置く。"></textarea>
+        </label>
+
+        <label class="wide-field syntax-field">
+          構文例 examples
+          <textarea id="examplesInput" rows="3" placeholder="1行に1例。例: 人类将貔貅视为瑞兽。|人類は貔貅を瑞獣とみなす。"></textarea>
+        </label>
+
+        <label class="wide-field syntax-field">
+          関連 related
+          <input id="relatedInput" placeholder="カンマ区切り。例: 将, 视为, 瑞兽" />
+        </label>
+
+        <label>
+          出典 source
+          <input id="sourceInput" placeholder="例: 有兽焉" />
+        </label>
+
+        <label>
+          位置 page
+          <input id="pageInput" placeholder="例: 1巻 p.20 / 第3話" />
+        </label>
+
+        <label class="wide-field">
+          タグ tags
+          <input id="tagsInput" placeholder="カンマ区切り。例: 会話, 疑問文, 人間界" />
+        </label>
+
+        <label class="wide-field">
+          メモ note
+          <textarea id="noteInput" rows="3" placeholder="訳ゆれ・口調・確認事項など"></textarea>
+        </label>
+      </form>
+    </section>
+
+    <section class="input-page-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Contains</p>
+          <h2>含まれる単語</h2>
+        </div>
+        <input id="containsSearch" type="search" placeholder="登録済み単語を検索" />
+      </div>
+
+      <p class="helper-note">
+        セリフ・文カードの場合、ここで選んだ単語が <code>contains</code> に入ります。単語カード側には例文として自動表示されます。
+      </p>
+
+      <div id="selectedContains" class="selected-chips"></div>
+      <div id="containsCandidates" class="contains-candidates"></div>
+
+      <label class="wide-field manual-contains">
+        未登録語を手入力で追加
+        <div class="inline-input">
+          <input id="manualContainsInput" placeholder="例: 天禄" />
+          <button id="addManualContainsButton" type="button">追加</button>
+        </div>
+      </label>
+    </section>
+
+    <section class="input-page-panel output-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Output</p>
+          <h2>生成JSON</h2>
+        </div>
+        <div class="helper-buttons">
+          <button id="copyObjectButton" type="button">カードJSONをコピー</button>
+          <button id="copyArrayItemButton" type="button">カンマ付きでコピー</button>
+        </div>
+      </div>
+
+      <pre id="jsonOutput" class="json-output"></pre>
+
+      <div class="preview-card">
+        <p class="label">プレビュー</p>
+        <h3 id="previewZh"></h3>
+        <p id="previewPinyin" class="pinyin"></p>
+        <p id="previewJa"></p>
+        <p id="previewMeta"></p>
+      </div>
+
+      <p class="helper-note">
+        コピーしたJSONを <code>data.json</code> の配列末尾に貼り付けてください。前の要素との間にカンマが必要です。
+      </p>
+    </section>
+  </main>
+
+  <script src="card-input.js"></script>
+</body>
+</html>
