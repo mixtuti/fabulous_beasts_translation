@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>クイズ | 中日翻訳カード</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Quiz Mode</p>
+      <h1>クイズ</h1>
+      <p class="lead">翻訳・穴埋め・音声・並び替えで、登録カードを楽しく復習できます。</p>
+      <nav class="page-nav" aria-label="ページ移動">
+        <a href="index.html">カード一覧</a>
+        <a href="input.html">中国語入力補助</a>
+        <a href="card-input.html">カード入力補助</a>
+        <a href="quiz.html">クイズ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout quiz-layout">
+    <section class="input-page-panel quiz-settings">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Settings</p>
+          <h2>出題設定</h2>
+        </div>
+        <button id="startQuizButton" type="button">クイズスタート</button>
+      </div>
+
+      <div class="quiz-type-grid">
+        <label class="quiz-check"><input type="checkbox" name="quizType" value="zhToJa" checked /> 中国語 → 日本語</label>
+        <label class="quiz-check"><input type="checkbox" name="quizType" value="jaToZh" checked /> 日本語 → 中国語</label>
+        <label class="quiz-check"><input type="checkbox" name="quizType" value="pinyinToZh" checked /> ピンイン → 漢字</label>
+        <label class="quiz-check"><input type="checkbox" name="quizType" value="blank" checked /> 穴埋め</label>
+        <label class="quiz-check"><input type="checkbox" name="quizType" value="audio" checked /> 音声 → 中国語</label>
+        <label class="quiz-check"><input type="checkbox" name="quizType" value="order" checked /> 並び替え</label>
+      </div>
+
+      <div class="quiz-option-row">
+        <label>
+          問題数
+          <select id="questionCountSelect">
+            <option value="5">5問</option>
+            <option value="10" selected>10問</option>
+            <option value="15">15問</option>
+            <option value="20">20問</option>
+          </select>
+        </label>
+
+        <label>
+          選択肢数
+          <select id="choiceCountSelect">
+            <option value="3">3択</option>
+            <option value="4" selected>4択</option>
+            <option value="5">5択</option>
+            <option value="6">6択</option>
+          </select>
+        </label>
+
+        <label>
+          並び替えの最大空欄数
+          <select id="orderMaxSelect">
+            <option value="3">3個</option>
+            <option value="4">4個</option>
+            <option value="5" selected>5個</option>
+            <option value="6">6個</option>
+            <option value="8">8個</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="helper-buttons">
+        <button id="selectAllTypesButton" type="button">全部選択</button>
+        <button id="clearTypesButton" type="button">全部外す</button>
+        <button id="selectFunTypesButton" type="button">音声・穴埋め・並び替えだけ</button>
+      </div>
+
+      <p class="helper-note">
+        選んだ出題タイプだけから、設定した問題数でランダムに出します。音声問題はブラウザの中国語読み上げ機能を使います。
+      </p>
+    </section>
+
+    <section class="quiz-card">
+      <div class="quiz-progress">
+        <span id="progressText">未開始</span>
+        <span id="scoreText">0 / 0</span>
+      </div>
+
+      <p id="questionType" class="quiz-type-label"></p>
+      <h2 id="questionText" class="quiz-question">出題タイプを選んで「10問スタート」を押してください。</h2>
+
+      <div id="audioControls" class="helper-buttons quiz-audio-controls is-hidden">
+        <button id="playAudioButton" type="button">音声を再生</button>
+      </div>
+
+      <div id="choices" class="quiz-choices"></div>
+      <div id="orderArea" class="order-area is-hidden"></div>
+
+      <p id="resultText" class="quiz-result"></p>
+
+      <div class="helper-buttons quiz-actions">
+        <button id="nextQuestionButton" type="button" disabled>次の問題</button>
+        <button id="restartButton" type="button">もう一度</button>
+      </div>
+    </section>
+
+    <section id="reviewPanel" class="input-page-panel is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Review</p>
+          <h2>間違えた問題</h2>
+        </div>
+      </div>
+      <div id="wrongList" class="wrong-list"></div>
+    </section>
+  </main>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
