@@ -347,7 +347,7 @@ function renderExamples(node, card) {
   const examplesBlock = node.querySelector(".examples-block");
   const examplesEl = node.querySelector(".examples");
 
-  if (!isWordCard(card)) {
+  if (!isWordCard(card) || card.hideExamples === true) {
     examplesBlock.classList.add("is-empty");
     return;
   }
@@ -482,6 +482,6 @@ resetButton.addEventListener("click", () => {
   clearFiltersAndGo("");
 });
 
-window.speechSynthesis?.addEventListener?.("voiceschanged", () => {});
+window.speechSynthesis?.addEventListener?.("voiceschanged", () => { });
 
 loadCards();
